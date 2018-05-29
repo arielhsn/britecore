@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Engineering Project</title>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+    <!-- build:css css/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- endinject -->
+    <!-- endbuild -->
+</head>
+
+<body class="bg-light">
+    <div class="container" data-bind="visible: showMain()">
+        <div class="row justify-content-md-center">
+            <div class="col-12">
+                <h4 class="mb-3" style="text-align: center">Request App</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Client</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Target Date</th>
+                            <th scope="col">Client Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: requestList, visible: requestList().length > 0">
+                        <tr>
+                            <th scope="row" data-bind="text: id"></th>
+                            <td data-bind="text: client.fullname"></td>
+                            <td data-bind="text: title"></td>
+                            <td data-bind="text: target_date"></td>
+                            <td data-bind="text: client_priority"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block"
+                    data-bind="click: addRequest">Add Request</button>
+            </div>
+        </div>
+    </div>
+    <div class="container" data-bind="visible: !showMain()">
+        <div class="row justify-content-md-center">
+            <div class="col-8">
+                <h4 class="mb-3" style="text-align: center">Request App</h4>
+                <hr class="mb-4">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-12 mb-3">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" id="title" placeholder="" 
+                                data-bind="value: title"
+                                maxlength="45">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12 mb-3">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" rows="5" placeholder=""
+                                data-bind="value: description"
+                                maxlength="255"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4 mb-3">
+                            <label for="product_area">Product Area</label>
+                            <select class="form-control" id="product_area"
+                                data-bind="options: productAreaList,
+                                    optionsText: 'name',
+                                    value: product_area_id,
+                                    optionsCaption: ''"></select>
+                        </div>
+                        <div class="form-group col-md-4 mb-3">
+                            <label for="client_priority">Client Priority</label>
+                            <input type="text" class="form-control" id="client_priority" placeholder="" 
+                                data-bind="value: client_priority, valueUpdate: 'keyup', event: { keyup: formatClientPriority() }"
+                                maxlength="3">
+                        </div>
+                        <div class="form-group col-md-4 mb-3">
+                            <label for="target_date">Target Date</label>
+                            <input type="text" class="form-control" id="target_date" placeholder="" 
+                                data-bind="value: target_date, valueUpdate: 'keyup', event: { keyup: formatTargetDate() }"
+                                maxlength="10">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12 mb-3">
+                            <label for="client">Client</label>
+                            <select class="form-control" id="client"
+                                data-bind="options: clientList,
+                                    optionsText: 'fullname',
+                                    value: client_id,
+                                    optionsCaption: ''"></select>
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block"
+                        data-bind="click: saveRequest">Create Request</button>
+                    <button class="btn btn-primary btn-lg btn-block"
+                        data-bind="click: cancel">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- build:js app/vendor.js -->
+    <!-- bower:js -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../bower_components/knockout/dist/knockout.js"></script>
+    <!-- endinject -->
+    <!-- endbuild -->
+
+    <!-- build:js app/britecore.js -->
+    <!-- bower:js -->
+    <script src="js/app.js"></script>
+    <!-- endinject -->
+    <!-- endbuild -->
+
+</body>
+</html>
